@@ -1,8 +1,7 @@
-package hello2020
+package parismeetup.benchmark
 
 import java.io.File
 import java.io.PrintWriter
-import java.lang.Math.pow
 import java.util.*
 import kotlin.math.pow
 
@@ -30,13 +29,24 @@ inline fun output(block: PrintWriter.() -> Unit) {
     _writer.apply(block).flush()
 }
 
-fun main() = output {
+/**
+ * Used to generate input arrays of a given size with random elements
+ */
+fun generate() = output {
     for (p in 1..9) {
         File("array$p.in").printWriter().use {
             val n = 10.0.pow(p.toDouble()).toInt()
             val random = Random(System.currentTimeMillis())
             it.println(n)
-            for (i in 0..n) { it.println(random.nextInt()) }
+            for (i in 0..n) {
+                it.println(random.nextInt())
+            }
         }
     }
+}
+
+fun main() = output {
+    var sum = 0
+    repeat(readInt()) { sum += readInt() }
+    println(sum)
 }

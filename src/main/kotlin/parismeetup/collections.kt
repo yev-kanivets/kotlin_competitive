@@ -1,8 +1,7 @@
-import java.io.File
+package parismeetup.collections
+
 import java.io.PrintWriter
 import java.util.*
-import java.util.Collections.max
-import java.util.Collections.min
 
 @JvmField val INPUT = System.`in`
 @JvmField val OUTPUT = System.out
@@ -27,12 +26,6 @@ fun readLong() = read().toLong()
 inline fun output(block: PrintWriter.() -> Unit) {
     _writer.apply(block).flush()
 }
-
-/*fun main() = output {
-    var sum = 0
-    repeat(readInt()) { sum += readInt() }
-    println(sum)
-}*/
 
 fun main() = output {
     val random = Random()
