@@ -1,7 +1,6 @@
 package r629.e
 
 import java.io.PrintWriter
-import java.lang.StringBuilder
 import java.util.*
 
 @JvmField val INPUT = System.`in`
@@ -64,24 +63,14 @@ fun main() = output {
     dfs(g, 0, -1, 0)
 
     repeat(m) {
-        val query = IntArray(readInt()) { readInt() - 1 }
+        val query = IntArray(readInt()) { readInt() - 1 }.toMutableSet()
         val farthest = query.maxBy { dist[it] }!!
 
-        val set = mutableSetOf<Int>()
-        set += 0
-        set += farthest
+        val isPossible = query.map { q ->
+            (tin[q] <= tin[farthest] && tout[q] >= tout[farthest])
+                    || g[q].map { (tin[it] <= tin[farthest] && tout[it] >= tout[farthest]) }.any { it }
+        }.all { it }
 
-        for (i in 0 until n) {
-            if (tin[i] <= tin[farthest] && tout[i] >= tout[farthest]) {
-                set += i
-            }
-        }
-
-        set.toSet().forEach { set.addAll(g[it]) }
-
-        val collection = mutableListOf<Int>()
-        query.toCollection(collection)
-
-        if (set.containsAll(collection)) println("YES") else println("NO")
+        if (isPossible) println("YES") else println("NO")
     }
 }
